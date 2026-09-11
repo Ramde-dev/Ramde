@@ -1,26 +1,8 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 require('dotenv').config();
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 587,
-    secure: false, // TLS
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Test connection
-transporter.verify((error, success) => {
-    if (error) {
-        console.error('❌ Email transporter error:', error.message);
-    } else {
-        console.log('✅ Email transporter ready (Brevo)');
-    }
-});
+console.log('✅ Resend configured');
 
-module.exports = transporter;
+module.exports = resend;
