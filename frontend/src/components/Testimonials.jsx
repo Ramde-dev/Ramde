@@ -22,7 +22,7 @@ export default function Testimonials() {
                             <div className="client">
                                 {t.client_image ? (
                                     <img 
-                                        src={`http://localhost:5000/uploads/${t.client_image}`} 
+                                        src={t.client_image} 
                                         alt={t.client_name} 
                                     />
                                 ) : (

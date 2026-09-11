@@ -87,7 +87,7 @@ export default function EditAbout() {
                         <label>About Image</label>
                         {currentImage && (
                             <div className="admin-current-file">
-                                <img src={`http://localhost:5000/uploads/${currentImage}`} alt="Current" />
+                                <img src={currentImage} alt="Current" />
                                 <span>Current image</span>
                             </div>
                         )}

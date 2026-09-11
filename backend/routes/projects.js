@@ -2,13 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
 const auth = require('../middleware/auth');
-const multer = require('multer');
-
-const storage = multer.diskStorage({
-    destination: './uploads/',
-    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
-});
-const upload = multer({ storage });
+const upload = require('../middleware/upload');
 
 router.get('/', async (req, res) => {
     try {
@@ -22,7 +16,7 @@ router.get('/', async (req, res) => {
 router.post('/', auth, upload.single('thumbnail'), async (req, res) => {
     try {
         const { title, description, icon, project_url, tags, display_order } = req.body;
-        const thumbnail = req.file ? req.file.filename : null;
+        const thumbnail = req.file ? req.file.path : null;
         const [result] = await pool.query(
             'INSERT INTO projects (title, description, thumbnail, icon, project_url, tags, display_order) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [title, description, thumbnail, icon, project_url, tags, display_order || 0]
@@ -38,8 +32,8 @@ router.put('/:id', auth, upload.single('thumbnail'), async (req, res) => {
         const { title, description, icon, project_url, tags, display_order } = req.body;
         const [existing] = await pool.query('SELECT * FROM projects WHERE id=?', [req.params.id]);
         let thumbnail = existing[0]?.thumbnail;
-        if (req.file) thumbnail = req.file.filename;
-        
+        if (req.file) thumbnail = req.file.path;
+
         await pool.query(
             'UPDATE projects SET title=?, description=?, thumbnail=?, icon=?, project_url=?, tags=?, display_order=? WHERE id=?',
             [title, description, thumbnail, icon, project_url, tags, display_order, req.params.id]

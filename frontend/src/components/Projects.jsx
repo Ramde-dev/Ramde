@@ -23,7 +23,7 @@ export default function Projects() {
                             <div className="project-thumb">
                                 {project.thumbnail ? (
                                     <img 
-                                        src={`http://localhost:5000/uploads/${project.thumbnail}`} 
+                                        src={project.thumbnail} 
                                         alt={project.title} 
                                     />
                                 ) : (

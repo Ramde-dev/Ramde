@@ -10,9 +10,8 @@ export default function About() {
 
     if (!data || !data.id) return null;
 
-    const imageUrl = data.image
-        ? `http://localhost:5000/uploads/${data.image}`
-        : 'https://via.placeholder.com/400x500?text=About+Photo';
+    // Cloudinary inarudisha full URL tayari
+    const imageUrl = data.image || 'https://via.placeholder.com/400x500?text=About+Photo';
 
     return (
         <section className="about" id="about">

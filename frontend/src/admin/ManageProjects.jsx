@@ -116,7 +116,7 @@ export default function ManageProjects() {
                         <div key={item.id} className="admin-list-item">
                             <div className="admin-list-info">
                                 {item.thumbnail ? (
-                                    <img src={`http://localhost:5000/uploads/${item.thumbnail}`} alt="" style={{ width: 50, height: 50, borderRadius: 6, objectFit: 'cover', marginRight: 12 }} />
+                                    <img src={item.thumbnail} alt="" style={{ width: 50, height: 50, borderRadius: 6, objectFit: 'cover', marginRight: 12 }} />
                                 ) : (
                                     <i className={item.icon} style={{ color: 'var(--primary)', fontSize: '1.5rem', marginRight: 12 }}></i>
                                 )}

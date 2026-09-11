@@ -12,13 +12,9 @@ export default function Hero() {
 
     if (!data) return <div style={{ padding: 50, textAlign: 'center' }}>Loading hero...</div>;
 
-    const imageUrl = data.profile_image
-        ? `http://localhost:5000/uploads/${data.profile_image}`
-        : 'https://via.placeholder.com/400x500?text=Profile+Photo';
-
-    const cvUrl = data.cv_file
-        ? `http://localhost:5000/uploads/${data.cv_file}`
-        : '#';
+    // Cloudinary inarudisha full URL tayari (https://res.cloudinary.com/...)
+    const imageUrl = data.profile_image || 'https://via.placeholder.com/400x500?text=Profile+Photo';
+    const cvUrl = data.cv_file || '#';
 
     return (
         <section className="hero" id="home">

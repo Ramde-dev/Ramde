@@ -98,7 +98,7 @@ export default function EditHero() {
                             <label>Profile Image</label>
                             {currentImage && (
                                 <div className="admin-current-file">
-                                    <img src={`http://localhost:5000/uploads/${currentImage}`} alt="Current" />
+                                    <img src={currentImage} alt="Current" />
                                     <span>Current image</span>
                                 </div>
                             )}
@@ -110,7 +110,7 @@ export default function EditHero() {
                             {currentCv && (
                                 <div className="admin-current-file">
                                     <i className="fa-solid fa-file-pdf"></i>
-                                    <a href={`http://localhost:5000/uploads/${currentCv}`} target="_blank" rel="noreferrer">{currentCv}</a>
+                                    <a href={currentCv} target="_blank" rel="noreferrer">View CV</a>
                                 </div>
                             )}
                             <input type="file" accept=".pdf" onChange={(e) => setData({ ...data, cv_file: e.target.files[0] })} />
