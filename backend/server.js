@@ -5,8 +5,12 @@ require('./config/db');
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// CORS — ruhusu Vercel, localhost, na Render
+app.use(cors({
+    origin: '*',  
+    credentials: true,
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
@@ -25,8 +29,8 @@ app.use('/api/contact', require('./routes/contact'));
 
 // Test route
 app.get('/', (req, res) => {
-    res.json({ 
-        message: 'Portfolio API is running 🚀',
+    res.json({
+        message: 'Portfolio API is running ',
         status: 'success',
         endpoints: {
             auth: '/api/auth',
@@ -38,8 +42,8 @@ app.get('/', (req, res) => {
             projects: '/api/projects',
             testimonials: '/api/testimonials',
             messages: '/api/messages',
-            contact: '/api/contact'
-        }
+            contact: '/api/contact',
+        },
     });
 });
 
