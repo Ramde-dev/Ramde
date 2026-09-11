@@ -1,0 +1,32 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables (MUHIMU — usiweke kwenye GitHub!)
+.env
+.env.local
+.env.production
+
+# Uploads (kwa backend)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Build outputs
+frontend/dist/
+backend/dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+logs/
+*.log
