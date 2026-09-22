@@ -1,17 +1,33 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { useIdleLogout } from '../hooks/useIdleLogout';
 
 export default function AdminLayout({ children, title }) {
     const navigate = useNavigate();
     const location = useLocation();
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-    const logout = () => {
+    // ✅ Use sessionStorage instead of localStorage (session ends when browser closes)
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+
+    const logout = useCallback(() => {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+        sessionStorage.clear();
+        navigate('/admin/login');
+    }, [navigate]);
+
+    const handleIdle = useCallback(() => {
+        alert('Your session has expired due to inactivity. Please log in again.');
+        logout();
+    }, [logout]);
+
+    // ⏱️ Auto-logout after 30 seconds of inactivity
+    useIdleLogout(handleIdle, 30000);
+
+    const handleLogout = () => {
         if (window.confirm('Are you sure you want to logout?')) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            navigate('/admin/login');
+            logout();
         }
     };
 
@@ -81,7 +97,7 @@ export default function AdminLayout({ children, title }) {
                     <a href="/" target="_blank" rel="noreferrer" className="admin-view-site">
                         <i className="fa-solid fa-eye"></i> View Website
                     </a>
-                    <button onClick={logout} className="admin-logout-btn">
+                    <button onClick={handleLogout} className="admin-logout-btn">
                         <i className="fa-solid fa-right-from-bracket"></i> Logout
                     </button>
                 </div>

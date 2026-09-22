@@ -15,8 +15,9 @@ export default function Login() {
         setLoading(true);
         try {
             const res = await API.post('/auth/login', { username, password });
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', JSON.stringify(res.data.user));
+            // ✅ Use sessionStorage (session ends when browser closes)
+            sessionStorage.setItem('token', res.data.token);
+            sessionStorage.setItem('user', JSON.stringify(res.data.user));
             navigate('/admin');
         } catch (err) {
             setError(err.response?.data?.error || 'Login failed. Please try again.');
